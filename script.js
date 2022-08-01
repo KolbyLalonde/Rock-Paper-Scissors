@@ -1,6 +1,6 @@
 /**
 @author Kolby Lalonde
-version: 1.1
+version: 1.3
 since: 1.0
 */
 
@@ -11,7 +11,6 @@ since: 1.0
 /* getComputerChoice() - Is a function that generates a random number
 between 1 and 3. Then returns Rock if the num is 1, Paper if the number is 2
 or Scissors if the number is 3. */
-
 function getComputerChoice(){
     let num = Math.floor((Math.random() * 3) + 1); // Generate number 1-3
 
@@ -27,18 +26,11 @@ function getComputerChoice(){
     }
 }
 
-/* getPlayerChoice() - Is a function that prompts the user to type in their
-decision of rock, paper or scissors and returns the string the input. */
-
-function getPlayerChoice(){
-    let pick = prompt("Please choose rock, paper or scissors: ", "")
-    return pick;
-}
-
 /* playRound() - Is a function that logically decides the result win, lose or tie of a round
 and returns a result statment. */
+function playRound(player){
 
-function playRound(computer, player){
+    var computer = getComputerChoice();
 
     // Checks all possible scenarios of the game and returns Error if inccorect strings provided
     if ( computer.toLowerCase() === player.toLowerCase()){
@@ -67,44 +59,142 @@ function playRound(computer, player){
     }
 }
 
-/* game - sets up a 5 round game between the player and computer. Each round
-will prompt the user for their choice and results/updated scores recored to console after each round.
-Finally once all 5 rounds are completed the result of the game is logged in the console. */
-
-function game(){
-
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let i = 0; i < 5; i++){
-        let result = playRound(getComputerChoice(), getPlayerChoice())
-        if(result.charAt(0) === "T"){
-            console.log("Round " + (i + 1) + ": " + result)
-        }
-        else if (result.charAt(4) === "L"){
-            computerScore++;
-            console.log("Round " + (i + 1) + ": " + result)
-        }
-        else if (result.charAt(4) === "W"){
-            playerScore++;
-            console.log("Round " + (i + 1) + ": " + result)
-        }
-        else {
-            console.log("Error occured round " + (i + 1))
-        }
-        console.log("Player: " + playerScore + "    Computer: " + computerScore)
+/* resultFinder() - Is a helper function that determines from the result string
+whether player has won lost or tied the round.
+*/
+function resultFinder(result) {
+    if(result.charAt(0) === "T"){
+        return "Tie";
     }
-
-    if( playerScore === computerScore){
-        return "After 5 rounds the game ended in a tie";
+    else if (result.charAt(4) === "L"){
+        computerScore++;
+        return "Lose";
     }
-    else if ( playerScore > computerScore){
-        return "Player Wins!";
-    }
-    else {
-        return "Computer Wins!";
+    else if (result.charAt(4) === "W"){
+        playerScore++;
+        return "Win";
     }
 }
 
-// Testing the game
-console.log(game())
+/* startRoundRock() - Is the function called when the user selects the rock
+button. It then upadates the page with the results for that round.
+*/
+function startRoundRock() {
+    if(playerScore === 5 || computerScore === 5){
+        return
+    }
+    let result = playRound("rock");
+    let update = resultFinder(result);
+    display.textContent = "Round result: " + result;
+    if (update === "Win"){
+        player.textContent = "Player score: " + playerScore;
+        if(playerScore === 5){
+            outcome.textContent = "Player WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+    else if (update === "Lose"){
+        computer.textContent = "Computer score: " + computerScore;
+        if(computerScore === 5){
+            outcome.textContent = "Computer WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+}
+
+/* startRoundPaper() - Is the function called when the user selects the paper
+button. It then upadates the page with the results for that round.
+*/
+function startRoundPaper() {
+    if(playerScore === 5 || computerScore === 5){
+        return
+    }
+    let result = playRound("paper");
+    let update = resultFinder(result);
+    display.textContent = "Round result: " + result;
+    if (update === "Win"){
+        player.textContent = "Player score: " + playerScore;
+        if(playerScore === 5){
+            outcome.textContent = "Player WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+    else if (update === "Lose"){
+        computer.textContent = "Computer score: " + computerScore;
+        if(computerScore === 5){
+            outcome.textContent = "Computer WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+}
+
+/* startRoundScissors() - Is the function called when the user selects the scissors
+button. It then upadates the page with the results for that round.
+*/
+function startRoundScissors() {
+    if(playerScore === 5 || computerScore === 5){
+        return
+    }
+    let result = playRound("scissors");
+    let update = resultFinder(result);
+    display.textContent = "Round result: " + result;
+    if (update === "Win"){
+        player.textContent = "Player score: " + playerScore;
+        if(playerScore === 5){
+            outcome.textContent = "Player WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+    else if (update === "Lose"){
+        computer.textContent = "Computer score: " + computerScore;
+        if(computerScore === 5){
+            outcome.textContent = "Computer WINS!";
+            refresh.textContent = "Refresh page to play again :)";
+        }
+    }
+}
+
+// Creating DOM Elements
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
+
+// Attaching eventlisteners to buttons
+rockButton.addEventListener("click", startRoundRock);
+paperButton.addEventListener("click", startRoundPaper);
+scissorsButton.addEventListener("click", startRoundScissors);
+
+const container = document.querySelector('#container');
+
+// Creating score variables
+let playerScore = 0;
+let computerScore = 0;
+
+// Initial page setup
+const display = document.createElement('div');
+display.classList.add('div');
+display.textContent = "Round result: ";
+
+const player = document.createElement('div');
+player.classList.add('div');
+player.textContent = "Player score: " + playerScore;
+
+const computer = document.createElement('div');
+computer.classList.add('div');
+computer.textContent = "Computer Score: " + computerScore;
+
+const outcome = document.createElement('div');
+outcome.classList.add('div');
+
+// Adding three elements to the container
+container.appendChild(display);
+container.appendChild(player);
+container.appendChild(computer);
+
+const outcometext = document.querySelector('#outcometext');
+const refresh = document.querySelector('#refresh');
+
+// Adding the outcome elements
+outcometext.appendChild(outcome);
+refresh.appendChild(refresh);
+

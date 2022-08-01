@@ -1,0 +1,78 @@
+
+/**
+@author Kolby Lalonde
+version: 1.2
+since: 1.0
+*/
+
+.title {
+    color: gold;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+}
+
+body {
+    background-color: grey;
+}
+
+button {
+    display: flex;
+    background-color: gold;
+    border-color: whitesmoke;
+    border-radius: 8px;
+    font-size: 20px;
+    margin-left: 30px;
+    margin-right: 55px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
+#rps {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 500px;
+    height: 200px;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
+    border-color: gold;
+    border-width: 3px;
+    background-color: whitesmoke;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+#outcometext {
+    color: gold;
+    text-align: center;
+    font-size: 50px;
+    padding: 30px;
+}
+
+#refresh {
+    color: whitesmoke;
+    text-align: center;
+    margin: 10px;
+    font-size: 20px;
+}
